@@ -1,4 +1,5 @@
 import { Injectable } from '@nestjs/common';
+import { SearchCachingService } from './searchCaching.service';
 import * as fs from 'fs';
 import * as path from 'path';
 
@@ -9,6 +10,8 @@ interface searchIndex<T> {
 
 @Injectable()
 export class SearchService {
+  constructor(private readonly cachingService: SearchCachingService) {}
+
   // Read json file
   private readJsonFile(fileName: string): Array<Record<string, unknown>> {
     // Placeholder implementation
@@ -37,13 +40,46 @@ export class SearchService {
   }
 
   // Finds the object with partial or full match of the user input
-  search(fileName: string, query: string): Array<Record<string, unknown>> {
+  async search(
+    fileName: string,
+    query: string,
+    page: number,
+    limit: number,
+  ): Promise<Record<string, unknown>> {
     const jsonArray = this.readJsonFile(fileName);
     const indexedArray = this.buildSearchIndex(jsonArray);
     const q = query.toLowerCase();
+    const start = (page - 1) * limit;
+    const end = start + (limit - 1);
 
-    return indexedArray
+    // Search redis cache if query result exists.
+    const cached = await this.cachingService.getCachedResult(q);
+    if (cached) {
+      return {
+        total: cached.length,
+        page,
+        limit,
+        results: cached.slice(start, end),
+      };
+    }
+
+    // Increment search count
+    const count = await this.cachingService.incrementKeyword(q);
+
+    const filteredArray = indexedArray
       .filter((record) => record.searchable.includes(q))
       .map((record) => record.original);
+
+    // Cache if keyword searched for more than 5 times
+    if (count > 5) {
+      await this.cachingService.setCachedResult(q, filteredArray);
+    }
+
+    return {
+      total: filteredArray.length,
+      page,
+      limit,
+      results: filteredArray.slice(start, end),
+    };
   }
 }
