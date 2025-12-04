@@ -7,11 +7,11 @@ import { AppService } from './app.service';
 import { CsvToJsonModule } from './modules/csvToJson/csvToJson.module';
 import { SearchModule } from './modules/search/search.module';
 import { ArrayModule } from './modules/array/array.module';
-import { TwoPointersModule } from './modules/two-pointers/two-pointers.module';
 import { HashMapModule } from './modules/hash-map/hash-map.module';
 import { StackModule } from './modules/stack/stack.module';
 import { TreeService } from './modules/tree/tree.service';
 import { TreeModule } from './modules/tree/tree.module';
+
 @Module({
   imports: [
     CacheModule.registerAsync({
@@ -29,12 +29,11 @@ import { TreeModule } from './modules/tree/tree.module';
     CsvToJsonModule,
     SearchModule,
     ArrayModule,
-    TwoPointersModule,
     HashMapModule,
     StackModule,
     TreeModule,
   ],
   controllers: [AppController],
-  providers: [AppService, TreeService],
+  providers: [AppService],
 })
 export class AppModule {}

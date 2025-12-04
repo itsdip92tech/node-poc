@@ -1,9 +1,10 @@
 import { Controller, Get, Post, Body, Query } from '@nestjs/common';
 import { ArrayService } from './array.service';
+import { StringService } from './string/string.service';
 import type { TwoSum, MaxSubArr, LongestPrefix } from './arrInterfaces';
 @Controller('array')
 export class ArrayController {
-    constructor(private readonly ArrayService: ArrayService){}
+    constructor(private readonly ArrayService: ArrayService, private readonly StringService: StringService){}
 
     @Post('twoSum')
     findIndex(@Body() param:TwoSum ):number[]{
@@ -36,8 +37,17 @@ export class ArrayController {
     }
 
     @Get('longestSubStr')
-    findLongestSubString(@Query('thread') thread:string):number{
-        return this.ArrayService.longestSubstring(thread);
+    findLongestSubString(@Query('param') param:string):number{
+        return this.ArrayService.longestSubstring(param);
     }
 
+    @Get('palindrome')
+    checkPalindrome(@Query('param') param:string):boolean{
+        return this.StringService.validatePalindrome(param);
+    }
+
+    @Get('printFibonacci')
+    printFibonacci(@Query('param') param:number):number[]{
+        return this.ArrayService.printFibonacci(param);
+    }
 }

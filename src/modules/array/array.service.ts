@@ -153,4 +153,21 @@ export class ArrayService {
 
         return maxLength;
     }
+
+    // Print the fibonacci series upto the given length
+    printFibonacci(param:number):number[]{
+        let series:number[] = []
+        series.push(0);
+        series.push(1)
+        let lastNum = 0;
+        let currNum = 1
+        for(let i =2;i<param;i++){
+            let next = lastNum+currNum
+            series.push(next);
+            lastNum = currNum;
+            currNum = next;
+        }
+
+        return series;
+    }
 }
