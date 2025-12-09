@@ -1,7 +1,54 @@
 import { Injectable } from '@nestjs/common';
 
+class BTreeNode{
+    left:any;
+    right: BTreeNode | null;
+    val: BTreeNode | null;
+    constructor(val:any){
+        this.val = val;
+        this.left = null;
+        this.right = null;
+     }
+}
+
 @Injectable()
 export class TreeService {
+
+    root: BTreeNode | null = null;
+
+    insert =(value:any): void=>{
+        this.root = this.insertNode(this.root,value);
+    }
+
+    private insertNode = (node:any,value:any):any=>{
+
+            // Check if root exists
+            if(node == null){
+                node = new BTreeNode(value);
+                return node;
+            }
+
+            if(value>node.value){
+                node.right = this.insertNode(node.right,value);
+            }
+            else if(value<node.value){
+                node.left = this.insertNode(node.left,value);
+            }
+
+            return node;
+    }
+
+
+    depthFirstTraversal  = (param: any[]): any[] =>{
+
+        let root = null;
+
+        return []
+    }
+
+
+
+
     // Given an arbitrarily nested data structure consisting of objects (dictionaries), arrays (lists), and primitive values, 
     // write a function that returns the sum of all numeric values contained anywhere within the structure.
     depthFirstSearch = (param: Record<string, any>): number =>{

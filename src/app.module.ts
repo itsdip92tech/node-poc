@@ -5,12 +5,13 @@ import KeyvRedis from '@keyv/redis';
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
 import { CsvToJsonModule } from './modules/csvToJson/csvToJson.module';
-import { SearchModule } from './modules/search/search.module';
-import { ArrayModule } from './modules/array/array.module';
-import { HashMapModule } from './modules/hash-map/hash-map.module';
-import { StackModule } from './modules/stack/stack.module';
-import { TreeService } from './modules/tree/tree.service';
-import { TreeModule } from './modules/tree/tree.module';
+import { SearchModule } from './modules/dsa/search/search.module';
+import { ArrayModule } from './modules/dsa/array/array.module';
+import { HashMapModule } from './modules/dsa/hash-map/hash-map.module';
+import { StackModule } from './modules/dsa/stack/stack.module';
+import { TreeModule } from './modules/dsa/tree/tree.module';
+import { StreamService } from './modules/stream/stream.service';
+import { StreamModule } from './modules/stream/stream.module';
 
 @Module({
   imports: [
@@ -32,8 +33,9 @@ import { TreeModule } from './modules/tree/tree.module';
     HashMapModule,
     StackModule,
     TreeModule,
+    StreamModule,
   ],
   controllers: [AppController],
-  providers: [AppService],
+  providers: [AppService, StreamService],
 })
 export class AppModule {}
