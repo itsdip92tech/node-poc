@@ -1,11 +1,11 @@
 import { Injectable } from '@nestjs/common';
 
 class BTreeNode{
-    left:any;
+    value:any;
     right: BTreeNode | null;
-    val: BTreeNode | null;
+    left: BTreeNode | null;
     constructor(val:any){
-        this.val = val;
+        this.value = val;
         this.left = null;
         this.right = null;
      }
@@ -16,11 +16,9 @@ export class TreeService {
 
     root: BTreeNode | null = null;
 
-    insert =(value:any): void=>{
-        this.root = this.insertNode(this.root,value);
-    }
+    
 
-    private insertNode = (node:any,value:any):any=>{
+    private insertNode = (node:BTreeNode | null,value:any):BTreeNode=>{
 
             // Check if root exists
             if(node == null){
@@ -28,14 +26,24 @@ export class TreeService {
                 return node;
             }
 
-            if(value>node.value){
+            if(node.value !== null && value > node.value){
                 node.right = this.insertNode(node.right,value);
             }
-            else if(value<node.value){
+            else if(node.value !== null && value<node.value){
                 node.left = this.insertNode(node.left,value);
             }
 
             return node;
+    }
+
+    buildFromArray  = (param:any[]):BTreeNode | null=>{
+        const insert =(value:any): void=>{
+        this.root = this.insertNode(this.root,value);
+        }
+        for(let val of param){
+            insert(val);
+        }
+        return this.root;
     }
 
 
@@ -77,5 +85,17 @@ export class TreeService {
         }
 
         return 0;
+    }
+}
+
+class Animal{
+    speak(){
+        return 1+1
+    }
+}
+
+export class Dog extends Animal{
+    speak(){
+        return 2+3;
     }
 }

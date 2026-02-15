@@ -51,6 +51,7 @@ export class HashMapService {
     // Every closing bracket must match the most recent unmatched opening bracket.
 
     validParentheses = (str:string):boolean=>{
+        console.log(str)
         let stack:string[] = [];
         let parenthesesMap = {
             ')':'(',

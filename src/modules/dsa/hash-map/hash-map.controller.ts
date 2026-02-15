@@ -16,6 +16,7 @@ export class HashMapController {
 
     @Get('validParentheses')
     checkValidParentheses(@Query('str') str: string): boolean{
+        console.log(str)
         return this.HashMapService.validParentheses(str);
     }
 }

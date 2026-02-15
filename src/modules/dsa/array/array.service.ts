@@ -1,5 +1,5 @@
 import { Injectable } from '@nestjs/common';
-import { TwoSum,MaxSubArr,LongestPrefix } from './arrInterfaces';
+import { TwoSum,GenericArr } from './arrInterfaces';
 @Injectable()
 export class ArrayService {
     // Given an array of integers nums and an integer target, return the indices of the two numbers in the array such that they add up to target.
@@ -23,7 +23,7 @@ export class ArrayService {
 
     // Given an integer array nums, return all the triplets [nums[i], nums[j], nums[k]] such that i != j, i != k, and j != k, and nums[i] + nums[j] + nums[k] == 0.
     // Notice that the solution set must not contain duplicate triplets.
-    threeSum = (param:MaxSubArr): number[][]=>{
+    threeSum = (param:GenericArr<number>): number[][]=>{
         param.arr.sort((a:number,b:number)=>a-b);
         let tripletsArr: number[][] = [];
 
@@ -63,7 +63,7 @@ export class ArrayService {
     }
     // Given an integer array nums, find the contiguous subarray (containing at least one number) which has the largest sum, and return its sum.
     // Time complexity=> O(n); Space Complexity => O(1)
-    maxSubArr = (param:MaxSubArr): number=>{
+    maxSubArr = (param:GenericArr<number>): number=>{
 
         let maxNumber = param.arr[0];
 
@@ -80,7 +80,7 @@ export class ArrayService {
 
     // Write a function to find the longest common prefix string among an array of strings
     // Time complexity=> O(s) s being the total number of characters in all the strings; Space Complexity => O(1)
-    longestPrefix = (param:LongestPrefix): string=>{
+    longestPrefix = (param:GenericArr<string>): string=>{
         if(!param.arr.length){
             return ""
         }
@@ -101,7 +101,7 @@ export class ArrayService {
     // You are given an array prices where prices[i] is the price of a given stock on the ith day.
     // You want to maximize your profit by choosing a single day to buy one stock and choosing a different day in the future to sell that stock.
     // Return the maximum profit you can achieve from this transaction. If you cannot achieve any profit, return 0.
-    maxProfit = (param: MaxSubArr): number=>{
+    maxProfit = (param: GenericArr<number>): number=>{
         let minPrice = Infinity;
         let maxPrice = 0
 

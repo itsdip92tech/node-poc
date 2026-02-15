@@ -1,9 +1,9 @@
 import { Module } from '@nestjs/common';
 import { TreeController } from './tree.controller';
-import { TreeService } from './tree.service';
+import { TreeService, Dog } from './tree.service';
 
 @Module({
   controllers: [TreeController],
-  providers: [TreeService]
+  providers: [TreeService, Dog]
 })
 export class TreeModule {}

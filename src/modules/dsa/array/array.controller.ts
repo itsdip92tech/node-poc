@@ -1,7 +1,7 @@
 import { Controller, Get, Post, Body, Query } from '@nestjs/common';
 import { ArrayService } from './array.service';
 import { StringService } from './string/string.service';
-import type { TwoSum, MaxSubArr, LongestPrefix } from './arrInterfaces';
+import type { TwoSum, GenericArr } from './arrInterfaces';
 @Controller('array')
 export class ArrayController {
     constructor(private readonly ArrayService: ArrayService, private readonly StringService: StringService){}
@@ -12,27 +12,27 @@ export class ArrayController {
     }
 
     @Post('threeSum')
-    findTriplets(@Body() param: MaxSubArr): number[][]{
+    findTriplets(@Body() param: GenericArr<number>): number[][]{
         return this.ArrayService.threeSum(param);
     }
 
     @Post('maxSubArr')
-    findMaxSubArr(@Body() param:MaxSubArr): number{
+    findMaxSubArr(@Body() param:GenericArr<number>): number{
         return this.ArrayService.maxSubArr(param);
     }
 
     @Post('longestPrefix')
-    findLongestPrefix(@Body() param:LongestPrefix): string{
+    findLongestPrefix(@Body() param:GenericArr<string>): string{
         return this.ArrayService.longestPrefix(param);
     }
 
     @Post('maxProfit')
-    findMaximumProfit(@Body() param: MaxSubArr): number{
+    findMaximumProfit(@Body() param: GenericArr<number>): number{
         return this.ArrayService.maxProfit(param);
     }
 
     @Post('maxJaggedArr')
-    findLargestNumJaggedArr(@Body() param: MaxSubArr):number{
+    findLargestNumJaggedArr(@Body() param: GenericArr<number>):number{
         return this.ArrayService.maxValJaggedArr(param.arr)
     }
 
