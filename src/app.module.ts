@@ -12,6 +12,7 @@ import { StackModule } from './modules/dsa/stack/stack.module';
 import { TreeModule } from './modules/dsa/tree/tree.module';
 import { StreamService } from './modules/stream/stream.service';
 import { StreamModule } from './modules/stream/stream.module';
+import { LinkedListModule } from './modules/dsa/linked-list/linked-list.module';
 
 @Module({
   imports: [
@@ -34,6 +35,7 @@ import { StreamModule } from './modules/stream/stream.module';
     StackModule,
     TreeModule,
     StreamModule,
+    LinkedListModule,
   ],
   controllers: [AppController],
   providers: [AppService, StreamService],
