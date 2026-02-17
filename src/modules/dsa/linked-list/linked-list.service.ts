@@ -3,7 +3,8 @@ import { Node,LinkedList } from './linkedList';
 
 @Injectable()
 export class LinkedListService {
-    // This class is made stateful on purpose so that the linked list can be preserved.
+    // This class is made stateful on purpose so that the linked list can be preserved and each method can use that list.
+
     private linkedList: LinkedList<number> = new LinkedList(0); 
     
     appendNode(value:number):LinkedList<number>{
@@ -31,6 +32,11 @@ export class LinkedListService {
         return this.linkedList;
     }
 
+    removeNode(index:number): LinkedList<number> | null{
+        this.linkedList.remove(index);
+        return this.linkedList;
+    }
+
     getNode(index:number):Node<number> | null{
         return this.linkedList.get(index);
     }
@@ -39,6 +45,11 @@ export class LinkedListService {
         this.linkedList.set(index,value);
         return this.linkedList;
     }    
+
+    reverse(): LinkedList<number> | null{
+        this.linkedList.reverse();
+        return this.linkedList;
+    }
 
     deleteList():LinkedList<number>{
         this.linkedList.head = null;

@@ -1,8 +1,8 @@
 export class Node<T>{
-    value: T;
+    value: T | null;
     next:  Node<T> | null = null;
 
-    constructor(value: T){
+    constructor(value: T | null){
         this.value = value;
     }
 }
@@ -111,6 +111,27 @@ export class LinkedList<T>{
 
     }
 
+    // Continue from remove node
+    remove(index:number): Node<T> | null{
+        if(this.length == 0 || index<0 || index>this.length -1) return null;
+
+        let prevNode: Node<T> | null = this.head;
+        let count = 1;
+        while(count<index){
+            if(prevNode)
+                prevNode = prevNode.next;
+            count++;
+        }
+
+        const deletedNode: Node<T> | null = prevNode?.next ?? null;
+        if(prevNode){
+            prevNode.next = deletedNode?.next ?? null;
+        }
+        if(deletedNode)
+        deletedNode.next = null;
+        return deletedNode;
+    }
+
     // Time complexity is 0(n) since all the nodes have to be iterated over. Best case is 0(1)
     // Space complexity is O(1)
     get(index:number):Node<T> | null{
@@ -126,7 +147,7 @@ export class LinkedList<T>{
     // Time complexity is 0(n) since all the nodes have to be iterated over. Best case is 0(1)
     // Space complexity is O(1)
     set(index:number,value:T): Node<T> | null{
-        if(this.length == 0 || index < 0 || index > this.length - 1) return null;
+        if(this.length == 0 || index < 0 || index > this.length -1) return null;
         let temp = this.head;
         for(let i = 0; i <index;i++){
             if(temp)
@@ -137,6 +158,26 @@ export class LinkedList<T>{
         return temp;
     }
     
+    reverse():Node<T> | null{
+        if(this.length == 0)return null;
+        if(this.length == 1)return this.head;
+        let temp: Node<T> | null = this.head;
+        this.head = this.tail;
+        this.tail = temp;
 
-    // Continue from remove node
+        let prevNode: Node<T> | null = null;
+        let currentNode: Node<T> | null = this.tail;
+
+        while(temp !== null){
+            if(currentNode)
+                currentNode = currentNode?.next;
+            if(temp)
+                temp.next = prevNode;
+            prevNode = temp;
+            temp = currentNode;
+        }
+        prevNode = null;
+        return this.head;
+    }
+    
 }
