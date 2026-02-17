@@ -2,7 +2,6 @@ import { Controller,Get,Query, Post, Body } from '@nestjs/common';
 import { LinkedListService } from './linked-list.service';
 import { LinkedList, Node } from './linkedList';
 import { QueryDTO } from './linked-list.dto';
-import { writeHeapSnapshot } from 'v8';
 
 @Controller('linked-list')
 export class LinkedListController {
@@ -56,5 +55,11 @@ export class LinkedListController {
   @Get('deleteList')
   delete():LinkedList<number> | null{
     return this.linkedListService.deleteList();
+  }
+
+  // Interview questions
+  @Get('findMiddle')
+  findMiddle(): Node<number> | null{
+    return this.linkedListService.findMiddleNode();
   }
 }

@@ -1,12 +1,13 @@
 import { Injectable } from '@nestjs/common';
 import { Node,LinkedList } from './linkedList';
+import { LinkedListProblems } from './linkedListProblems';
 
 @Injectable()
 export class LinkedListService {
     // This class is made stateful on purpose so that the linked list can be preserved and each method can use that list.
+    private linkedList: LinkedList<number> = new LinkedList(0)
+    constructor(private linkedListProblems: LinkedListProblems<number>){}
 
-    private linkedList: LinkedList<number> = new LinkedList(0); 
-    
     appendNode(value:number):LinkedList<number>{
         this.linkedList.append(value);
         return this.linkedList;
@@ -58,4 +59,8 @@ export class LinkedListService {
         return this.linkedList
     }
 
+    // Interview problems
+    findMiddleNode():Node<number> | null{
+        return this.linkedListProblems.findMiddle(this.linkedList);
+    }
 }
