@@ -62,4 +62,19 @@ export class LinkedListController {
   findMiddle(): Node<number> | null{
     return this.linkedListService.findMiddleNode();
   }
+
+  @Get('hasLoop')
+  hasLoop(): boolean{
+    return this.linkedListService.hasLoop();
+  }
+
+  @Get('kthNode')
+  kthNode(@Query('k') k:number): Node<number> | null{
+    return this.linkedListService.kthNodeFromEnd(k);
+  }
+
+  @Get('removeDuplicates')
+  removeDuplicates(): LinkedList<number> | null{
+    return this.linkedListService.removeDuplicates();
+  }
 }

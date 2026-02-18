@@ -63,4 +63,16 @@ export class LinkedListService {
     findMiddleNode():Node<number> | null{
         return this.linkedListProblems.findMiddle(this.linkedList);
     }
+
+    hasLoop():boolean{
+        return this.linkedListProblems.hasLoop(this.linkedList);
+    }
+
+    kthNodeFromEnd(k:number):Node<number> | null{
+        return this.linkedListProblems.findKthNodeFromEnd(this.linkedList,k);
+    }
+
+    removeDuplicates():LinkedList<number> | null{
+        return this.linkedListProblems.removeDuplicateNodes(this.linkedList);
+    }
 }
