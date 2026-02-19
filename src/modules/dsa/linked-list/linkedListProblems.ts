@@ -88,9 +88,67 @@ export class LinkedListProblems<T>{
         let temp: Node<number> | null = list.head;
         while(temp != null && temp.value != null){
             decimal =  (decimal*2) + temp.value;
-            console.log(decimal);
             temp = temp.next;
         }
         return decimal;        
+    }
+
+    // Time complexity is O(n) since all nodes have to be checked and space complexity is O(1)
+    partitionList(list:LinkedList<number>, x:number):LinkedList<number> |  null{
+        if(list.head == null) return null;
+        if(list.head.next == null) return list;
+
+        let dummy1List: LinkedList<number> = new LinkedList<number>(0);
+        let dummy2List: LinkedList<number> = new LinkedList<number>(0);
+        let tempNode: Node<number> | null = list.head;
+
+        while(tempNode != null && tempNode.value != null){
+            if(tempNode.value < x){
+                dummy1List.append(tempNode.value); 
+            }else{
+                dummy2List.append(tempNode.value);
+            }
+            tempNode = tempNode.next;
+        }
+        if(dummy1List.tail !=null && dummy2List.head !=null){
+            dummy1List.tail.next = dummy2List.head.next;
+            dummy2List.head.next = null;
+        }
+        if(dummy1List.head !=null)
+        dummy1List.head = dummy1List.head.next;
+
+        return dummy1List;
+        
+    }
+
+    // Leetcode - 92
+    reverseListBetweenNodes(list:LinkedList<T>,m:number,n:number):LinkedList<T> | null{
+        if(list.head == null || list.head.next == null) return null;
+        const dummyNode: Node<T> | null = new Node<T>(null);
+        dummyNode.next = list.head;
+        let prevNode: Node<T> | null = dummyNode;
+        let currentNode: Node<T> | null = list.head;
+        let nextNode: Node<T> | null = currentNode.next;
+
+        for(let i=0;i<m;i++){
+            if(prevNode !=null)
+            prevNode = prevNode?.next;
+            if(currentNode !=null)
+            currentNode  = currentNode?.next;
+            if(nextNode !=null)
+            nextNode = nextNode?.next;
+        }
+
+        for(let i =0; i<n-m;i++){
+            if(currentNode !=null && nextNode !=null)
+                currentNode.next = nextNode?.next;
+            if(nextNode !=null && prevNode != null)
+                nextNode.next = prevNode.next;
+            if(prevNode !=null)
+                prevNode.next = nextNode;
+            if(nextNode !=null && currentNode != null)
+                nextNode = currentNode.next;
+        }
+        return list;
     }
 }

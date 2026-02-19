@@ -1,7 +1,7 @@
 import { Controller,Get,Query, Post, Body } from '@nestjs/common';
 import { LinkedListService } from './linked-list.service';
 import { LinkedList, Node } from './linkedList';
-import { QueryDTO } from './linked-list.dto';
+import { QueryDTO, ReverseBetweenDTO } from './linked-list.dto';
 
 @Controller('linked-list')
 export class LinkedListController {
@@ -81,5 +81,15 @@ export class LinkedListController {
   @Get('binaryToDecimal')
   binaryToDecimal(): number{
     return this.linkedListService.binaryToDecimalConversion();
+  }
+
+  @Get('partitionList')
+  partitionList(@Query('x') x:number):LinkedList<number> | null{
+      return this.linkedListService.partitionListService(x);
+  }
+
+  @Get('reverseBetween')
+  reverseListBetween(@Query() param: ReverseBetweenDTO):LinkedList<number> | null{
+      return this.linkedListService.reverseListBetween(param.m,param.n);
   }
 }

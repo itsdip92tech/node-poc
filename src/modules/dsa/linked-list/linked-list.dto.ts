@@ -12,3 +12,16 @@ export class QueryDTO {
   value: number;
 
 }
+
+
+export class ReverseBetweenDTO {
+
+  @Type(() => Number)
+  @IsInt()
+  m: number;
+
+  @Type(() => Number)
+  @IsInt()
+  n: number;
+
+}

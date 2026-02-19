@@ -11,8 +11,6 @@ export class Node<T>{
     next:  Node<T> | null = null;
 
     constructor(value: T | null){
-        console.log('Node constructor');
-        console.log(typeof value)
         this.value = value;
     }
 }
@@ -31,7 +29,6 @@ export class LinkedList<T>{
     printList(){
         let temp: Node<T> | null = this.head; 
         while(temp != null){
-            console.log(temp.value);
             temp = temp.next;
         }
     }
@@ -73,13 +70,11 @@ export class LinkedList<T>{
             this.head = newNode;
             this.tail = this.head;
         }else{
-            console.log('Inside second check')
             let temp = this.head;
             for(let i =0; i<index -1;i++){
                 if(temp)
                     temp = temp?.next;
             }
-            console.log(newNode);
             if(temp){            
                 newNode.next = temp.next;
                 temp.next = newNode;

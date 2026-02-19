@@ -79,4 +79,12 @@ export class LinkedListService {
     binaryToDecimalConversion(): number{
         return this.linkedListProblems.binaryToDecimal(this.linkedList);
     }
+
+    partitionListService(x:number):LinkedList<number> | null{
+        return this.linkedListProblems.partitionList(this.linkedList,x);
+    }
+
+    reverseListBetween(m:number,n:number):LinkedList<number> | null{
+        return this.linkedListProblems.reverseListBetweenNodes(this.linkedList,m,n);
+    }
 }
