@@ -77,4 +77,9 @@ export class LinkedListController {
   removeDuplicates(): LinkedList<number> | null{
     return this.linkedListService.removeDuplicates();
   }
+
+  @Get('binaryToDecimal')
+  binaryToDecimal(): number{
+    return this.linkedListService.binaryToDecimalConversion();
+  }
 }

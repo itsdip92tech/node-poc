@@ -73,10 +73,24 @@ export class LinkedListProblems<T>{
                     currentNode = currentNode.next;
                 }else{
                     prevNode.next = currentNode.next;
+                    currentNode.next = null;
                     currentNode = prevNode.next;
                 }
         }
         return list;
     }
     
+    // Doubling method
+    // Time complexity will be O(n) and space complexity will be O(1)
+    binaryToDecimal(list:LinkedList<number>): number {
+        if(list.head == null) return 0;
+        let decimal: number = 0;
+        let temp: Node<number> | null = list.head;
+        while(temp != null && temp.value != null){
+            decimal =  (decimal*2) + temp.value;
+            console.log(decimal);
+            temp = temp.next;
+        }
+        return decimal;        
+    }
 }

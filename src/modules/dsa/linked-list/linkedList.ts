@@ -1,8 +1,18 @@
+// Issue identified - Appended nodes are added as strings. Check the reason.
+// Reason was in NestJs all query params are received as strings and regardless of type annotations, 
+// the methods process the values as strings. The type annotations are purely compile time checks and are 
+// completely erased during transpilation. So they cannot perform runtime validation or conversion.
+
+// The fix is adding a global transformation in the Nest initator main.js that will convert all parameters defined
+// in the routes to their converted types throughout the app.
+
 export class Node<T>{
     value: T | null;
     next:  Node<T> | null = null;
 
     constructor(value: T | null){
+        console.log('Node constructor');
+        console.log(typeof value)
         this.value = value;
     }
 }
@@ -13,9 +23,9 @@ export class LinkedList<T>{
     length: number = 0;
 
     constructor(value:T){
-       this.head = new Node(value);
-       this.tail = this.head;
-       this.length++;
+        this.head = new Node<T>(value);
+        this.tail = this.head;
+        this.length++;
     }
 
     printList(){
@@ -28,7 +38,7 @@ export class LinkedList<T>{
     // Time complexity is 0(1) since only 1 node is added at the end and pointers are shifted.
     // Space complexity is O(1)
     append(value:T){
-        const newNode: Node<T> = new Node(value);
+        const newNode: Node<T> = new Node<T>(value);
         if(this.length == 0){
             this.head = newNode;
             this.tail = this.head;
