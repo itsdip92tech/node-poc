@@ -92,4 +92,9 @@ export class LinkedListController {
   reverseListBetween(@Query() param: ReverseBetweenDTO):LinkedList<number> | null{
       return this.linkedListService.reverseListBetween(param.m,param.n);
   }
+
+  @Get('swapNodes')
+  swapNodes():LinkedList<number> | null{
+      return this.linkedListService.swapNodesInPairs();
+  }
 }

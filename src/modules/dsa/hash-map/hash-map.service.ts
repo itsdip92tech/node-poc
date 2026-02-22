@@ -70,4 +70,61 @@ export class HashMapService {
 
         return stack.length  === 0;
     }
+
+
+
+    // Items in common - function that takes two arrays as input and returns true if there is atleast one item in common
+    itemInCommon(array1: number[],array2: number[]):boolean{
+        if((array1.length == 0 && array2.length == 0) || array1.length == 0 || array2.length==0) return false;
+
+        const array1Values: Map<number,boolean> = new Map<number,boolean>();
+        for(let i=0;i<array1.length;i++){
+            array1Values.set(array1[i],true);
+        }
+
+        for(let j=0;j<array2.length;j++){
+            if(array1Values.has(array2[j]))
+                return true;
+        }
+        return false;
+    }
+
+    // Identify and return all duplicates from an array.
+    findDuplicates(array1:number[]):number[]{
+        if(array1.length < 2) return array1;
+        const distinctElements: Map<number,number> = new Map<number,number>();
+        const duplicateElements: number[] = [];
+
+        for(let i=0;i<array1.length;i++){
+            let count:number = distinctElements.get(array1[i]) || 0;
+            distinctElements.set(array1[i],count+1);
+
+            if(distinctElements.get(array1[i]) == 2){
+                duplicateElements.push(array1[i]);
+            }
+        }
+
+        return duplicateElements;
+    }
+
+    // Find first non repeating character
+    firstNonRepeatingCharacter(value:string):string{
+        if(value.length == 0) return "";
+        const characterCount: Map<string,number> = new Map<string,number>();
+        let targetChar:string = "";
+        for(let i=0;i<value.length;i++){
+            let count = characterCount.get(value[i]) || 0;
+            characterCount.set(value[i],count+1);
+        }
+
+        for(const [key,value] of characterCount){
+            if(value == 1){
+                return key;
+            }
+        }
+
+        return targetChar;
+    }
+
+
 }

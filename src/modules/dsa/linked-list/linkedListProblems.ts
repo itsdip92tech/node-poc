@@ -151,4 +151,34 @@ export class LinkedListProblems<T>{
         }
         return list;
     }
+
+    // Leetcode-24
+    // Time complexity will be O(n) since all nodes in the list will be touched.
+    // Space complexity is O(1)
+    swapNodes(list:LinkedList<T>):LinkedList<T> | null{
+        if(list.head == null) return null;
+        if(list.head.next == null) return list;
+
+        let dummyNode: Node<T> | null = new Node<T>(null);
+        dummyNode.next = list.head;
+        let prevNode: Node<T> | null = dummyNode;
+        let currentNode: Node<T> | null = list.head;
+        let nextNode: Node<T> | null = currentNode.next;
+
+        while(currentNode!= null && nextNode !==null){
+            currentNode.next  = nextNode.next;
+            nextNode.next = prevNode.next;
+            prevNode.next = nextNode;
+
+            // Shifting the pointers to the next set of nodes in the list
+            prevNode = currentNode;
+            currentNode = currentNode.next;
+            if(currentNode)
+                nextNode = currentNode.next;
+        }
+
+        list.head = dummyNode.next;
+
+        return list;
+    }
 }

@@ -87,4 +87,8 @@ export class LinkedListService {
     reverseListBetween(m:number,n:number):LinkedList<number> | null{
         return this.linkedListProblems.reverseListBetweenNodes(this.linkedList,m,n);
     }
+
+    swapNodesInPairs():LinkedList<number> | null{
+        return this.linkedListProblems.swapNodes(this.linkedList);
+    }
 }
