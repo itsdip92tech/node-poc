@@ -126,5 +126,25 @@ export class HashMapService {
         return targetChar;
     }
 
+    // Time complexity is O(n) and space complexity is 
+    groupAnagrams(words:string[]):string[][]{
+        if(words.length == 0) return [];
+        const anagramMap: Map<string,string[]> = new Map<string,string[]>();
+        let groupAnagrams: string[][]= [];
+        for(let i = 0; i< words.length; i++){
+            let sortedString = words[i].split('').sort().join('');
+            if(!anagramMap.has(sortedString)){
+                anagramMap.set(sortedString,[words[i]]);
+            }else{
+                anagramMap.get(sortedString)?.push(words[i]);
+            }
+        }
+
+        for(const[key,value] of anagramMap){
+            groupAnagrams.push(value);
+        }
+        return groupAnagrams;
+    }
+
 
 }

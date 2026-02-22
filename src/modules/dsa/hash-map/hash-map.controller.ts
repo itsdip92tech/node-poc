@@ -36,4 +36,9 @@ export class HashMapController {
     findNonRepeatingCharacters(@Query('str') str: string):string{
         return this.HashMapService.firstNonRepeatingCharacter(str);
     }
+
+    @Post('groupAnagrams')
+    checkGroupAnagrams(@Body('param') param: string[]):string[][]{
+        return this.HashMapService.groupAnagrams(param);
+    }
 }
