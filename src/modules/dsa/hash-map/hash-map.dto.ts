@@ -6,3 +6,8 @@ export class ItemsInCommon{
 export class FindDuplicates{
     array1: number[]
 }
+
+export class ArrayToTarget{
+    array1: number[];
+    target: number
+}

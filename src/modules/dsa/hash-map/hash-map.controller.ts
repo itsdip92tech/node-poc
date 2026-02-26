@@ -1,15 +1,10 @@
 import { Controller, Get,Post, Body, Query } from '@nestjs/common';
 import { HashMapService } from './hash-map.service';
-import { ItemsInCommon, FindDuplicates } from './hash-map.dto';
+import { ItemsInCommon, FindDuplicates, ArrayToTarget } from './hash-map.dto';
 
 @Controller('hash-map')
 export class HashMapController {
     constructor(private readonly HashMapService: HashMapService){}
-
-    @Get('nonRepeatingChar')
-    findNonRepeatingChar(@Query('str') str: string): string{
-        return this.HashMapService.nonRepeatingChar(str);
-    }
 
     @Get('lenSubString')
     findLenSubString(@Query('str') str: string): number{
@@ -32,6 +27,16 @@ export class HashMapController {
         return this.HashMapService.findDuplicates(param.array1)
     }
 
+    @Post('findIndices')
+    findIndices(@Body() param:ArrayToTarget):number[]{
+        return this.HashMapService.findIndices(param.array1,param.target);
+    }
+
+    @Post('findAllPairs')
+    findAllPairs(@Body() param:ArrayToTarget):number[][]{
+        return this.HashMapService.findAllPairs(param.array1,param.target);
+    }
+
     @Get('findNonRepeatingCharacters')
     findNonRepeatingCharacters(@Query('str') str: string):string{
         return this.HashMapService.firstNonRepeatingCharacter(str);
@@ -40,5 +45,16 @@ export class HashMapController {
     @Post('groupAnagrams')
     checkGroupAnagrams(@Body('param') param: string[]):string[][]{
         return this.HashMapService.groupAnagrams(param);
+    }
+
+    @Post('subArraySum1')
+    subArraySum1(@Body() param: ArrayToTarget):number[]{
+        return this.HashMapService.subArraySum(param.array1, param.target);
+    }
+
+    
+    @Post('pairsWithDifference')
+    pairsWithDifference(@Body() param: ArrayToTarget):number{
+        return this.HashMapService.pairsWithDifference(param.array1, param.target);
     }
 }
